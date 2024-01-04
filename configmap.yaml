@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-configmap
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Homepage Gruppe G</title>
+      <style>
+        body {
+          background-color: #f5f5f5; /* Hintergrundfarbe */
+          color: #333; /* Schriftfarbe */
+          font-family: Arial, sans-serif; /* Schriftart */
+          text-align: center; /* Zentrierung des Textes */
+        }
+        h1 {
+          color: #1e90ff; /* Farbe für Überschriften */
+        }
+        a {
+          color: #4caf50; /* Farbe für Links */
+        }
+      </style>
+    </head>
+    <body>
+      <h1>Willkommen am Server der Gruppe G</h1>
+      <p>Bitte am Link klicken</p>
+      
+      <!-- Link to Health Check -->
+      <a href="health-check.html">Check Health Status</a>
+    </body>
+    </html>
+
+  health-check.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Health Check Status</title>
+      <style>
+        body {
+          background-color: #d3ffd3; /* Hintergrundfarbe */
+          color: #008000; /* Schriftfarbe */
+          font-family: Arial, sans-serif; /* Schriftart */
+          text-align: center; /* Zentrierung des Textes */
+        }
+        h1 {
+          color: #228b22; /* Farbe für Überschriften */
+        }
+      </style>
+    </head>
+    <body>
+      <h1>Healthcheck des Servers</h1>
+      <p>Der Server ist gesund</p>
+    </body>
+    </html>
