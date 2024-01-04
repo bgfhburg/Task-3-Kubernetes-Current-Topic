@@ -1,0 +1,42 @@
+## Funktionen des Manifests:
+
+Die Manifeste dienen zur Bereitstellung einer Homepage-Anwendung in einem Kubernetes-Cluster. Hier sind die Schlüsselfunktionen:
+
+1. **ConfigMap für HTML-Inhalte:**
+   - Die `configmap.yaml` definiert eine Kubernetes-ConfigMap, die HTML-Inhalte für die Homepage enthält.
+   - Die externe Konfiguration ermöglicht eine einfache Aktualisierung des Homepage-Inhalts ohne Änderungen am Deployment.
+
+2. **Multi-Container-Pod-Design:**
+   - Die `deployment.yaml`-Datei spezifiziert ein Multi-Container-Pod-Design.
+   - Enthält einen Hauptcontainer (`web-container`) mit einem Nginx-Image für die Homepage.
+   - Ebenfalls enthält einen Sidecar-Container (`monitoring-sidecar`) mit einem Alpine-Image für den Health-Check.
+
+3. **Monitoring-Sidecar:**
+   - Der Sidecar-Container führt einen einfachen Health-Check durch, indem er alle 60 Sekunden den Status der Homepage überwacht.
+   - Der Alpine-Container (`monitoring-sidecar`) sorgt für zusätzliche Überwachungsfunktionalitäten.
+
+
+Hier sind die Schlüsselelemente des Multi-Container Pod Designs in diesem Manifest:
+
+1.Zwei Container im selben Pod:
+
+Der web-container enthält die Hauptanwendung (Nginx) für die Homepage.
+Der monitoring-sidecar ist der Sidecar-Container, der für Überwachungszwecke dient.
+
+2.Gemeinsame Volumes:
+
+Die Container teilen gemeinsame Volumes (config-volume und log-volume), um Daten auszutauschen oder zu teilen. Das config-volume wird für die HTML-Inhalte verwendet, während das log-volume für Protokollierungszwecke des Sidecar-Containers genutzt wird.
+
+3.Intercontainer-Kommunikation:
+
+Der monitoring-sidecar-Container führt einen Gesundheitscheck durch, indem er die URL http://homepage-service:80/health-check.html aufruft. Dies zeigt, wie Container im selben Pod über einen DNS-Namen miteinander kommunizieren können.
+
+4.Unabhängige Prozesse:
+
+Jeder Container kann unabhängig von anderen Prozessen ausgeführt werden, während sie dennoch gemeinsame Ressourcen und Netzwerkbereiche teilen.
+Dieses Multi-Container Design ermöglicht eine saubere Trennung von Aufgaben und Verantwortlichkeiten innerhalb desselben Pods und ist besonders nützlich für Szenarien, in denen ein Sidecar-Container bestimmte unterstützende Aufgaben erfüllt, wie in diesem Fall die Überwachung des Gesundheitsstatus der Homepage.
+
+
+
+
+
