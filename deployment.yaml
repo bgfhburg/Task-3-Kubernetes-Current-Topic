@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homepage-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homepage
+  template:
+    metadata:
+      labels:
+        app: homepage
+    spec:
+      containers:
+      - name: web-container
+        image: nginx:latest
+        volumeMounts:
+        - name: config-volume
+          mountPath: /usr/share/nginx/html
+
+      - name: monitoring-sidecar
+        image: alpine:latest
+        command: ['sh', '-c', 'apk add --no-cache curl && while true; do echo "Checking health status..."; curl -sS http://homepage-service:80/health-check.html; sleep 60; done']
+        volumeMounts:
+        - name: log-volume
+          mountPath: /logs
+
+      volumes:
+      - name: config-volume
+        configMap:
+          name: homepage-configmap
+
+      - name: log-volume
+        emptyDir: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: homepage-service
+spec:
+  selector:
+    app: homepage
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
