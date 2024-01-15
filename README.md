@@ -54,7 +54,7 @@ Wichtig: Dieses Fenster muss geöffnet bleiben, damit das Dashboard funktioniert
 8. Jetzt ist die Website unter folgender Adresse verfügbar:
 
    ```bash
-   http://localhost:8080 in Ihrem Browser.
+   http://localhost:8080
     ```
 
 9. Folgende Website sollte dargestellt werden:
