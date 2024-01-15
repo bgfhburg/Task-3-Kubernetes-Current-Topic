@@ -17,7 +17,7 @@ spec:
         image: nginx:latest
         resources:
           requests:
-            cpu: "100m"  # Beispiel: 100 Milli-CPU (0,1 CPU) Anforderung
+            cpu: "300m"  # Beispiel: 100 Milli-CPU (0,1 CPU) Anforderung
         volumeMounts:
         - name: config-volume
           mountPath: /usr/share/nginx/html
@@ -25,6 +25,9 @@ spec:
       - name: monitoring-sidecar
         image: alpine:latest
         command: ['sh', '-c', 'apk add --no-cache curl && while true; do echo "Checking health status..."; curl -sS http://homepage-service:80/health-check.html; sleep 60; done']
+        resources:
+          requests:
+            cpu: "300m"  # Beispiel: 50 Milli-CPU (0,05 CPU) Anforderung
         volumeMounts:
         - name: log-volume
           mountPath: /logs
