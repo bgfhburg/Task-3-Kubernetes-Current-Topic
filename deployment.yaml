@@ -15,6 +15,9 @@ spec:
       containers:
       - name: web-container
         image: nginx:latest
+        resources:
+          requests:
+            cpu: "100m"  # Beispiel: 100 Milli-CPU (0,1 CPU) Anforderung
         volumeMounts:
         - name: config-volume
           mountPath: /usr/share/nginx/html
@@ -35,7 +38,6 @@ spec:
         emptyDir: {}
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
