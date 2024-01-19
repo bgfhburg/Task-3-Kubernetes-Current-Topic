@@ -15,6 +15,9 @@ Die Manifeste dienen zur Bereitstellung einer Homepage-Anwendung in einem Kubern
    - Der Sidecar-Container führt einen einfachen Health-Check durch, indem er alle 60 Sekunden den Status der Homepage überwacht.
    - Der Alpine-Container (`monitoring-sidecar`) sorgt für zusätzliche Überwachungsfunktionalitäten.
 
+4. Die auto.yaml definiert einen HorizontalPodAutoscaler (HPA) in Kubernetes.
+   - Der HPA skaliert automatisch ein Deployment mit dem Namen "homepage-deployment" basierend auf der CPU-Auslastung.
+   - Die Konfiguration ermöglicht eine dynamische Anpassung der Replikatanzahl, um eine durchschnittliche CPU-Auslastung von 8 Prozent zu erreichen.
 
 Hier sind die Schlüsselelemente des Multi-Container Pod Designs in diesem Manifest:
 
@@ -41,5 +44,5 @@ Dieses Multi-Container Design ermöglicht eine saubere Trennung von Aufgaben und
 Quellen:
 
 [1] https://www.phind.com/search?home=true
-[2]
-[3]
+[2] https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+[3] https://kubernetes.io/docs/concepts/configuration/configmap/
